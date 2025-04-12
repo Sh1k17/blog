@@ -9,16 +9,17 @@
     <lastBuildDate>Sat, 12 Apr 2025 14:04:07 +0800</lastBuildDate>
     <atom:link href="https://sh1k17.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello World</title>
-      <link>https://sh1k17.github.io/posts/hello-world/</link>
+      <title>大模型训练中的loss计算</title>
+      <link>https://sh1k17.github.io/posts/loss/</link>
       <pubDate>Sat, 12 Apr 2025 14:04:07 +0800</pubDate>
-      <guid>https://sh1k17.github.io/posts/hello-world/</guid>
-      <description>欢迎来到我的博客！
-这里是一个 行内公式 示例：爱因斯坦的质能公式 $E = mc^2$ 在讨论中非常著名。
-下面是一个 行间公式 示例，展示高斯积分：
-$$ \int_{-\infty}^{+\infty} e^{-x^2} dx = \sqrt{\pi} $$
-你也可以写其他公式，比如：
-$$\text{Label} = \underbrace{[-100,-100,\ldots,-100]}_{L_p+1\text{ 个ignoreIndex}},, r_1,, r_2,, \ldots,, r_{L_{t}}$$</description>
+      <guid>https://sh1k17.github.io/posts/loss/</guid>
+      <description>1.pretrain阶段的loss \[ Input = &amp;lt;bos&amp;gt;, w_1, w_2...w_T \]
+\[ Label=w_1,w_2...w_T,&amp;lt;eos&amp;gt; \]
+\[ Loss_{pretrain} = \sum_{k=1}^{T+1} \log{P(w_t|&amp;lt;bos&amp;gt;, w_1, w_2...w_{t-1})} \]
+2.sft阶段的loss \[ Input = &amp;lt;bos&amp;gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t} \]
+\[ Label=\underbrace{[-100, -100...-100]}_{L_p+1个ignoreIndex},r_1,r2...r_{L_t} \]
+\[ Loss_{sft}=\sum_{t=L_p+2}^{L_p+L_r+1}\log{P(w_t|Input_{&amp;lt;t})} \]
+3.rlfh阶段的loss </description>
     </item>
   </channel>
 </rss>

@@ -153,19 +153,20 @@ MathJax = {
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Hello World
+    <h2 class="entry-hint-parent">大模型训练中的loss计算
     </h2>
   </header>
   <div class="entry-content">
-    <p>欢迎来到我的博客！
-这里是一个 行内公式 示例：爱因斯坦的质能公式 $E = mc^2$ 在讨论中非常著名。
-下面是一个 行间公式 示例，展示高斯积分：
-$$ \int_{-\infty}^{&#43;\infty} e^{-x^2} dx = \sqrt{\pi} $$
-你也可以写其他公式，比如：
-$$\text{Label} = \underbrace{[-100,-100,\ldots,-100]}_{L_p&#43;1\text{ 个ignoreIndex}},, r_1,, r_2,, \ldots,, r_{L_{t}}$$</p>
+    <p>1.pretrain阶段的loss \[ Input = &lt;bos&gt;, w_1, w_2...w_T \]
+\[ Label=w_1,w_2...w_T,&lt;eos&gt; \]
+\[ Loss_{pretrain} = \sum_{k=1}^{T&#43;1} \log{P(w_t|&lt;bos&gt;, w_1, w_2...w_{t-1})} \]
+2.sft阶段的loss \[ Input = &lt;bos&gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t} \]
+\[ Label=\underbrace{[-100, -100...-100]}_{L_p&#43;1个ignoreIndex},r_1,r2...r_{L_t} \]
+\[ Loss_{sft}=\sum_{t=L_p&#43;2}^{L_p&#43;L_r&#43;1}\log{P(w_t|Input_{&lt;t})} \]
+3.rlfh阶段的loss </p>
   </div>
   <footer class="entry-footer"><span title='2025-04-12 14:04:07 +0800 CST'>April 12, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Hello World" href="https://sh1k17.github.io/posts/hello-world/"></a>
+  <a class="entry-link" aria-label="post link to 大模型训练中的loss计算" href="https://sh1k17.github.io/posts/loss/"></a>
 </article>
     </main>
     

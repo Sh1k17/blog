@@ -3,3 +3,9 @@ languageCode = 'zh-CN'
 title = '天天开心'
 theme = 'PaperMod'
 publishDir = "docs"
+
+
+
+[security.exec]
+  allow = ['^(pandoc)$', '^(dart-)?sass(-embedded)?$', '^go$', '^npx$', '^postcss$']
+
