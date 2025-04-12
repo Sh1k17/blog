@@ -15,11 +15,16 @@
       <guid>https://sh1k17.github.io/posts/loss/</guid>
       <description>1.pretrain阶段的loss \[ Input = &amp;lt;bos&amp;gt;, w_1, w_2...w_T \]
 \[ Label=w_1,w_2...w_T,&amp;lt;eos&amp;gt; \]
-\[ Loss_{pretrain} = \sum_{k=1}^{T+1} \log{P(w_t|&amp;lt;bos&amp;gt;, w_1, w_2...w_{t-1})} \]
+\[ Loss_{pretrain} = -\sum_{k=1}^{T+1} \log{P(w_t|&amp;lt;bos&amp;gt;, w_1, w_2...w_{t-1})} \]
 2.sft阶段的loss \[ Input = &amp;lt;bos&amp;gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t} \]
 \[ Label=\underbrace{[-100, -100...-100]}_{L_p+1个ignoreIndex},r_1,r2...r_{L_t} \]
-\[ Loss_{sft}=\sum_{t=L_p+2}^{L_p+L_r+1}\log{P(w_t|Input_{&amp;lt;t})} \]
-3.rlfh阶段的loss </description>
+\[ Loss_{sft}=-\sum_{t=L_p+2}^{L_p+L_r+1}\log{P(w_t|Input_{&amp;lt;t})} \]
+3.rlfh阶段的loss \[ Loss_{R}(R_{\phi})=-E_{(x,y_{win},y_{lose})\in{D}}[\log{{\sigma}((r_{\phi}(x, y_{win}) - r_{\phi}(x, y_{lose})))}] \]
+\[ Loss(\pi_{\theta})=-E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] + \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)] \]
+4.dpo的loss \[ Loss=\max_\limits{\pi_{\theta}}\{{E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] - \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)]}\} \]
+\[ =\max_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y) - \beta\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)}] \]
+\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)} - \frac{1}{\beta}r_{\phi}(x,y)] \]
+\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}} \]</description>
     </item>
   </channel>
 </rss>
