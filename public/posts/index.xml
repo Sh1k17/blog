@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- 0.125.7</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 12 Apr 2025 14:04:07 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World</title>
+      <link>http://localhost:1313/posts/hello-world/</link>
+      <pubDate>Sat, 12 Apr 2025 14:04:07 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hello-world/</guid>
+      <description>欢迎来到我的博客！
+这里是一个 行内公式 示例：爱因斯坦的质能公式 $E = mc^2$ 在讨论中非常著名。
+下面是一个 行间公式 示例，展示高斯积分：
+$$ \int_{-\infty}^{+\infty} e^{-x^2} dx = \sqrt{\pi} $$
+你也可以写其他公式，比如：
+$$\text{Label} = \underbrace{[-100,-100,\ldots,-100]}_{L_p+1\text{ 个ignoreIndex}},, r_1,, r_2,, \ldots,, r_{L_{t}}$$</description>
+    </item>
+  </channel>
+</rss>
