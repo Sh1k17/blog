@@ -19,5 +19,6 @@ $$
 你也可以写其他公式，比如：
 
 
+
 $$\text{Label} = \underbrace{[-100,-100,\ldots,-100]}\_{L\_p+1\text{ 个ignoreIndex}},\, r_1,\, r_2,\, \ldots,\, r\_{L\_{t}}$$
 
