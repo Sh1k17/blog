@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>天天开心</title><link>https://sh1k17.github.io/</link><description>Recent content on 天天开心</description><generator>Hugo -- 0.125.7</generator><language>zh-CN</language><lastBuildDate>Sat, 12 Apr 2025 14:04:07 +0800</lastBuildDate><atom:link href="https://sh1k17.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>大模型训练中的loss计算</title><link>https://sh1k17.github.io/posts/loss/</link><pubDate>Sat, 12 Apr 2025 14:04:07 +0800</pubDate><guid>https://sh1k17.github.io/posts/loss/</guid><description>1.pretrain阶段的loss \[ Input = &amp;lt;bos&amp;gt;, w_1, w_2...w_T \]
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>天天开心</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 天天开心</description>
+    <generator>Hugo -- 0.125.7</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 12 Apr 2025 14:04:07 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大模型训练中的loss计算</title>
+      <link>http://localhost:1313/posts/loss/</link>
+      <pubDate>Sat, 12 Apr 2025 14:04:07 +0800</pubDate>
+      <guid>http://localhost:1313/posts/loss/</guid>
+      <description>1.pretrain阶段的loss \[ Input = &amp;lt;bos&amp;gt;, w_1, w_2...w_T \]
 \[ Label=w_1,w_2...w_T,&amp;lt;eos&amp;gt; \]
 \[ Loss_{pretrain} = -\sum_{k=1}^{T+1} \log{P(w_t|&amp;lt;bos&amp;gt;, w_1, w_2...w_{t-1})} \]
 2.sft阶段的loss \[ Input = &amp;lt;bos&amp;gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t} \]
@@ -9,4 +24,7 @@
 4.dpo的loss \[ Loss=\max_\limits{\pi_{\theta}}\{{E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] - \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)]}\} \]
 \[ =\max_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y) - \beta\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)}] \]
 \[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)} - \frac{1}{\beta}r_{\phi}(x,y)] \]
-\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}} \]</description></item></channel></rss>
+\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}} \]</description>
+    </item>
+  </channel>
+</rss>
