@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>天天开心</title>
-    <link>https://sh1k17.github.io/</link>
+    <link>https://shikiyuan.netlify.app/</link>
     <description>Recent content on 天天开心</description>
-    <generator>Hugo -- 0.125.7</generator>
+    <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Apr 2025 14:04:07 +0800</lastBuildDate>
-    <atom:link href="https://sh1k17.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Apr 2025 14:16:07 +0800</lastBuildDate>
+    <atom:link href="https://shikiyuan.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>激活函数浅析</title>
+      <link>https://shikiyuan.netlify.app/posts/activations/</link>
+      <pubDate>Tue, 15 Apr 2025 14:16:07 +0800</pubDate>
+      <guid>https://shikiyuan.netlify.app/posts/activations/</guid>
+      <description>```python3&#xA;import torch&#xA;import matplotlib.pyplot as plt&#xA;import math&#xA;&#xA;def my_relu(x):&#xA;    # ReLU: f(x) = max(0, x) torch.relu(x)&#xA;    return torch.maximum(x, torch.tensor(0.0, dtype=x.dtype, device=x.device))&#xA;&#xA;def my_sigmoid(x):&#xA;    # Sigmoid: f(x) = 1 / (1 + exp(-x)) torch.sigmoid(x)&#xA;    return 1 / (1 + torch.exp(-x))&#xA;&#xA;def my_tanh(x):&#xA;    # Tanh: f(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x)) torch.tanh(x)&#xA;    return (torch.exp(x) - torch.exp(-x)) / (torch.exp(x) + torch.exp(-x))&#xA;&#xA;def my_leaky_relu(x, negative_slope=0.01):&#xA;    # LeakyReLU: f(x) = x if x &gt;= 0 else negative_slope * x torch.nn.functional.leaky_relu(x, negative_slope=0.01)&#xA;    return torch.where(x &gt;= 0, x, negative_slope * x)&#xA;&#xA;def my_elu(x, alpha=1.0):&#xA;    # ELU: f(x) = x if x &gt;= 0 else alpha*(exp(x)-1) torch.nn.functional.elu(x, alpha=1.0)&#xA;    return torch.where(x &gt;= 0, x, alpha * (torch.exp(x) - 1))&#xA;```&#xA;&#xA;&#xA;$$&#xA;y = relu(x)=\max(0,x)&#xA;$$&#xA;&#xA;$$&#xA;y=sigmoid(x)=\frac{1}{1 + e^{-x}}&#xA;$$&#xA;&#xA;$$&#xA;y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}&#xA;$$&#xA;&#xA;$$&#xA;y=leakyRelu(x)=\begin{cases}&#xA;x  &amp;  x &gt; 0 \\&#xA;\alpha x &amp;  x &lt;= 0&#xA;\end{cases}&#xA;$$&#xA;&#xA;$$&#xA;y=elu(x)=\begin{cases}&#xA;x &amp; x &gt; 0 \\&#xA;\alpha (e^x - 1) &amp; x &lt;= 0&#xA;\end{cases}&#xA;$$&#xA;&#xA;&#xA;&#xA;![激活函数](./activations.jpg)</description>
+    </item>
     <item>
       <title>大模型训练中的loss计算</title>
-      <link>https://sh1k17.github.io/posts/loss/</link>
+      <link>https://shikiyuan.netlify.app/posts/loss/</link>
       <pubDate>Sat, 12 Apr 2025 14:04:07 +0800</pubDate>
-      <guid>https://sh1k17.github.io/posts/loss/</guid>
-      <description>1.pretrain阶段的loss \[ Input = &amp;lt;bos&amp;gt;, w_1, w_2...w_T \]
-\[ Label=w_1,w_2...w_T,&amp;lt;eos&amp;gt; \]
-\[ Loss_{pretrain} = -\sum_{k=1}^{T+1} \log{P(w_t|&amp;lt;bos&amp;gt;, w_1, w_2...w_{t-1})} \]
-2.sft阶段的loss \[ Input = &amp;lt;bos&amp;gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t} \]
-\[ Label=\underbrace{[-100, -100...-100]}_{L_p+1个ignoreIndex},r_1,r2...r_{L_t} \]
-\[ Loss_{sft}=-\sum_{t=L_p+2}^{L_p+L_r+1}\log{P(w_t|Input_{&amp;lt;t})} \]
-3.rlfh阶段的loss \[ Loss_{R}(R_{\phi})=-E_{(x,y_{win},y_{lose})\in{D}}[\log{{\sigma}((r_{\phi}(x, y_{win}) - r_{\phi}(x, y_{lose})))}] \]
-\[ Loss(\pi_{\theta})=-E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] + \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)] \]
-4.dpo的loss \[ Loss=\max_\limits{\pi_{\theta}}\{{E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] - \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)]}\} \]
-\[ =\max_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y) - \beta\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)}] \]
-\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)} - \frac{1}{\beta}r_{\phi}(x,y)] \]
-\[ =\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}} \]</description>
+      <guid>https://shikiyuan.netlify.app/posts/loss/</guid>
+      <description>## 1.pretrain阶段的loss&#xA;&#xA;&#xA;$$&#xA;Input = &lt;bos&gt;, w_1, w_2...w_T &#xA;$$&#xA;&#xA;$$&#xA;Label=w_1,w_2...w_T,&lt;eos&gt;&#xA;$$&#xA;&#xA;$$&#xA;Loss_{pretrain} = -\sum_{k=1}^{T+1} \log{P(w_t|&lt;bos&gt;, w_1, w_2...w_{t-1})}&#xA;$$&#xA;&#xA;## 2.sft阶段的loss&#xA;&#xA;$$&#xA;Input = &lt;bos&gt;, p_1, p_2...p_{L_p},r_1,r2...r_{L_t}&#xA;$$&#xA;&#xA;$$&#xA;Label=\underbrace{[-100, -100...-100]}_{L_p+1个ignoreIndex},r_1,r2...r_{L_t}&#xA;$$&#xA;&#xA;$$&#xA;Loss_{sft}=-\sum_{t=L_p+2}^{L_p+L_r+1}\log{P(w_t|Input_{&lt;t})}&#xA;$$&#xA;&#xA;## 3.rlfh阶段的loss&#xA;&#xA;$$&#xA;Loss_{R}(R_{\phi})=-E_{(x,y_{win},y_{lose})\in{D}}[\log{{\sigma}((r_{\phi}(x, y_{win}) - r_{\phi}(x, y_{lose})))}]&#xA;$$&#xA;&#xA;$$&#xA;Loss(\pi_{\theta})=-E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] + \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)]&#xA;$$&#xA;&#xA;## 4.dpo的loss&#xA;&#xA;$$&#xA;Loss=\max_\limits{\pi_{\theta}}\{{E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y)] - \beta D_{KL}[\pi_{\theta}(y|x) || \pi_{ref}(y|x)]}\}&#xA;$$&#xA;&#xA;$$&#xA;=\max_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[r_{\phi}(x,y) - \beta\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)}]&#xA;$$&#xA;&#xA;$$&#xA;=\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)} - \frac{1}{\beta}r_{\phi}(x,y)]&#xA;$$&#xA;&#xA;$$&#xA;=\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}}&#xA;$$&#xA;&#xA;考虑归一化上式右边的分母:&#xA;$$&#xA;Z(x)=\sum_{y}\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}&#xA;$$&#xA;可以构造如下概率分布：&#xA;$$&#xA;\pi^{*}(y|x)=\pi_{ref}(y|x)e^{r_{\phi}(x,y)/\beta}/Z(x)&#xA;$$&#xA;于是：&#xA;$$&#xA;Loss=\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}[\log\frac{\pi_{\theta}(y|x)}{\pi^{*}(y|x)}-logZ(x)]&#xA;$$&#xA;&#xA;$$&#xA;=\min_\limits{\pi_{\theta}}E_{x\verb|~|D,y\verb|~|\pi_{\theta}(y|x)}\log\frac{\pi_{\theta}(y|x)}{\pi^{*}(y|x)}&#xA;$$&#xA;&#xA;$$&#xA;=\min_\limits{\pi_{\theta}}E_{x\verb|~|D}D_{KL}\pi_{\theta}(y|x)||(\pi^{*}(y|x))&#xA;$$&#xA;&#xA;KL散度在两个分布相等于最小</description>
     </item>
   </channel>
 </rss>
